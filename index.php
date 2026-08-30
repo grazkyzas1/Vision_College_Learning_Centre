@@ -52,7 +52,7 @@ if (session_status() === PHP_SESSION_NONE) {
 
         try {
             // 2. Query PDO
-            $sql = "SELECT course_id, name, target_audience, min_age, max_age, description FROM course";
+            $sql = "SELECT course_id, name, target_audience, min_age, max_age, description, image_name FROM course";
             $stmt = $pdo->prepare($sql);
             $stmt->execute();
             $courses = $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -60,12 +60,12 @@ if (session_status() === PHP_SESSION_NONE) {
             if ($courses && count($courses) > 0):
                 foreach ($courses as $course):
                     // Insert image depends course name
-                    $course_image = (strpos(strtolower($course['name']), 'english') !== false) ? '/../image/english_course.png' : '/../image/chinese_course.png';
+                    $course_image = "/../image/" . $course['image_name'];
         ?>
                     <div class="col-12 col-md-5 col-lg-4">
                         <div class="card h-100 text-white text-center border-0 shadow" style="background-color: #006093; border-radius: 6px;">
                             <div class="p-3">
-                                <img src="<?php echo $course_image; ?>" class="card-img-top rounded" style="height: 160px; object-fit: cover;" alt="<?php echo htmlspecialchars($course['name']); ?>">
+                                <img src="<?php echo $course_image ?>" class="card-img-top rounded" style="height: 160px; object-fit: cover;" alt="<?php echo htmlspecialchars($course['name']); ?>">
                             </div>
                             <div class="card-body d-flex flex-column justify-content-between pt-0 pb-4">
                                 <div>
