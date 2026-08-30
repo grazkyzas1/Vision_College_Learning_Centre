@@ -12,9 +12,7 @@ if (session_status() === PHP_SESSION_NONE) {
     <!-- depends device -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Vision College Learning Centre</title>
-    <!-- Bootstrap 5 Css -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
-    <!-- CSS and Back to Top Button -->
     <link rel="stylesheet" href="/css/theme.css">
     <link rel="stylesheet" href="css/floating-totop-button.css">
 </head>

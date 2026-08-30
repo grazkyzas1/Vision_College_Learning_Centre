@@ -56,7 +56,6 @@ h5,
 h6 {
     font-family: var(--font-heading);
     font-weight: 700;
-    /* Montserrat Bold */
     color: var(--vc-dark-blue);
     margin-bottom: 0.5rem;
 }
@@ -109,7 +108,7 @@ a:hover {
     text-decoration: underline;
 }
 
-/* Custom Quick Links in Footer */
+/* Quick Links in Footer */
 .footer-link {
     color: var(--white);
     text-decoration: none;

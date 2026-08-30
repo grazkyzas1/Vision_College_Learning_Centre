@@ -42,6 +42,15 @@
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 <script src="js/floating-totop-button.js"></script>
 <script src="/js/script.js"></script>
-</body>
+<!-- Back to Top Button -->
+<a href="#" class="back-to-top" id="backToTopBtn">
+    <i class="bi bi-arrow-up"></i> Top
+</a>
 
-</html>
+<!-- Active Plugin -->
+<script>
+    $(document).ready(function() {
+        // Run the plugin to initialize the back-to-top button
+        $("body").toTopButton({});
+    });
+</script>
