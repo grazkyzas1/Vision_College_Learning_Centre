@@ -10,8 +10,8 @@ if (session_status() === PHP_SESSION_NONE) {
     <div class="row align-items-center g-4">
         <div class="col-12 col-md-8">
             <div class="d-flex gap-2">
-                <img src="/../image/hero1.png" class="img-fluid rounded shadow-sm w-50" style="object-fit: cover; height: 260px;" alt="Students learning">
-                <img src="/../image/hero2.png" class="img-fluid rounded shadow-sm w-50" style="object-fit: cover; height: 260px;" alt="Students talking">
+                <img src="/../image/english_course.png" class="img-fluid rounded shadow-sm w-50" style="object-fit: cover; height: 260px;" alt="Students learning">
+                <img src="/../image/chinese_course.png" class="img-fluid rounded shadow-sm w-50" style="object-fit: cover; height: 260px;" alt="Students talking">
             </div>
         </div>
         <div class="col-12 col-md-4 text-center">
@@ -60,7 +60,7 @@ if (session_status() === PHP_SESSION_NONE) {
             if ($courses && count($courses) > 0):
                 foreach ($courses as $course):
                     // Insert image depends course name
-                    $course_image = (strpos(strtolower($course['name']), 'english') !== false) ? '/../image/hero1.png' : '/../image/hero2.png';
+                    $course_image = (strpos(strtolower($course['name']), 'english') !== false) ? '/../image/english_course.png' : '/../image/chinese_course.png';
         ?>
                     <div class="col-12 col-md-5 col-lg-4">
                         <div class="card h-100 text-white text-center border-0 shadow" style="background-color: #006093; border-radius: 6px;">
