@@ -1,0 +1,133 @@
+/* Brand Stylesheet */
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap');
+
+/* 1. Brand Variables */
+:root {
+    /* Main Brand Colours */
+    --vc-blue: #003361;
+    /* Vision Blue */
+    --vc-light-grey: #bcbec0;
+    /* Light Grey */
+
+    /* Monochromatic Palette */
+    --vc-light-blue: #6ac6e8;
+    /* Light Blue */
+    --vc-navy-blue: #006093;
+    /* Navy Blue */
+    --vc-dark-blue: #0c4166;
+    /* Dark Blue */
+
+    /* System Colours */
+    --bg-light: #f8f9fa;
+    --text-dark: #1a1a1a;
+    --white: #ffffff;
+
+    /* Typography */
+    --font-heading: 'Montserrat', sans-serif;
+    --font-body: 'Montserrat', sans-serif;
+
+    /* Spacing & Borders */
+    --border-radius: 6px;
+    --box-shadow: 0 4px 12px rgba(0, 51, 97, 0.08);
+    --transition: all 0.3s ease;
+}
+
+/* 2. Base Reset & Typography */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: var(--font-body);
+    font-weight: 400;
+    /* Montserrat Regular */
+    color: var(--text-dark);
+    background-color: var(--bg-light);
+    line-height: 1.6;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-family: var(--font-heading);
+    font-weight: 700;
+    /* Montserrat Bold */
+    color: var(--vc-dark-blue);
+    margin-bottom: 0.5rem;
+}
+
+a {
+    text-decoration: none;
+    color: var(--vc-navy-blue);
+    transition: var(--transition);
+}
+
+a:hover {
+    color: var(--vc-light-blue);
+}
+
+/* 3. Global Components */
+.container {
+    width: 90%;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.btn-primary {
+    display: inline-block;
+    padding: 10px 24px;
+    background-color: var(--vc-blue);
+    color: var(--white);
+    font-weight: 600;
+    border: none;
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.btn-primary:hover {
+    background-color: var(--vc-dark-blue);
+}
+
+.nav-box {
+    color: var(--vc-navy-blue);
+    font-size: larger;
+    text-decoration: none;
+    transition: var(--transition);
+}
+
+.nav-box:hover,
+.nav-box:focus,
+.nav-box:active {
+    background-color: var(--white);
+    color: var(--vc-dark-blue);
+    text-decoration: underline;
+}
+
+/* Custom Quick Links in Footer */
+.footer-link {
+    color: var(--white);
+    text-decoration: none;
+    transition: var(--transition);
+    display: inline-block;
+}
+
+.footer-link:hover,
+.footer-link:focus {
+    color: var(--white);
+    text-decoration: underline;
+    text-underline-offset: 4px;
+    /* Black Stroke Effect */
+    -webkit-text-stroke: 0.1px #000000;
+    text-shadow: 0 0 2px rgba(0, 0, 0, 0.8);
+}
+
+
+.card.text-white h4 {
+    color: var(--white);
+}
