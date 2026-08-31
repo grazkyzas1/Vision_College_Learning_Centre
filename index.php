@@ -15,10 +15,10 @@ if (session_status() === PHP_SESSION_NONE) {
             </div>
         </div>
         <div class="col-12 col-md-4 text-center">
-            <h4 class="fw-bold mb-3 text-uppercase tracking-wide" style="letter-spacing: 1px;">
+            <h4 class="fw-bold mb-3 tracking-wide" style="letter-spacing: 1px;">
                 WANT TO LEARN ENGLISH<br>OR CHINESE?
             </h4>
-            <a href="enquiry.php" class="btn btn-primary btn-lg px-4 py-2 fw-bold text-uppercase rounded-1 shadow-sm">
+            <a href="enquiry.php" class="btn btn-primary btn-lg px-4 py-2 fw-bold rounded-1 shadow-sm">
                 ENQUIRY NOW
             </a>
         </div>

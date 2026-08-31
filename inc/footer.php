@@ -43,10 +43,6 @@
 <script src="js/floating-totop-button.js"></script>
 <script src="/js/script.js"></script>
 <!-- Back to Top Button -->
-<a href="#" class="back-to-top" id="backToTopBtn">
-    <i class="bi bi-arrow-up"></i> Top
-</a>
-
 <!-- Active Plugin -->
 <script>
     $(document).ready(function() {

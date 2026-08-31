@@ -8,11 +8,11 @@ require_once __DIR__ . '/inc/db.php';
 require_once __DIR__ . '/inc/header.php';
 ?>
 
-<!-- Page Header Banner -->
+<!-- Page Header -->
 <section class="py-4 bg-light border-bottom mb-5">
     <div class="container text-center">
-        <h2 class="fw-bold text-uppercase mb-2" style="letter-spacing: 1.5px; color: #006093;">OUR COURSES</h2>
-        <p class="fs-5 text-secondary mb-0">Explore our available language courses and start learning today.</p>
+        <h2 class="fw-bold mb-2" style="letter-spacing: 1.5px; color: var(--vc-navy-blue);">OUR COURSES</h2>
+        <p class="fs-5 mb-0">Explore our available language courses and start learning today.</p>
     </div>
 </section>
 
