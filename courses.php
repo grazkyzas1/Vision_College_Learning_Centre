@@ -78,7 +78,7 @@ require_once __DIR__ . '/inc/header.php';
                                     <div>
                                         <a href="enquiry.php?course_id=<?php echo $course['course_id']; ?>"
                                             class="btn btn-light fw-bold text-dark px-4 py-2 shadow-sm rounded-1">
-                                            Enquiry now
+                                            Enquire now
                                         </a>
                                     </div>
                                 </div>

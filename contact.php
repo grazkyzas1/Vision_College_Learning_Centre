@@ -55,25 +55,25 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <form method="POST">
     <div class="mb-3" style="max-width: 700px; margin: 0 auto;">
         <label for="full_name" class="form-label">Full Name</label>
-        <input type="text" class="form-control" id="full_name" name="full_name" placeholder="Enter your full name" style="background-color: var(--vc-light-grey);">
+        <input type="text" class="form-control" id="full_name" name="full_name" placeholder="Enter your full name" style="background-color: var(--bg-light);">
     </div>
 
     <div class="mb-3" style="max-width: 700px; margin: 0 auto;">
         <label for="email" class="form-label">Email</label>
-        <input type="email" class="form-control" id="email" name="email" placeholder="Enter your email" style="background-color: var(--vc-light-grey);">
+        <input type="email" class="form-control" id="email" name="email" placeholder="Enter your email" style="background-color: var(--bg-light);">
     </div>
 
     <div class="mb-3" style="max-width: 700px; margin: 0 auto;">
         <label for="phone" class="form-label">Phone (Optional)</label>
-        <input type="text" class="form-control" id="phone" name="phone" placeholder="Enter your phone number" style="background-color: var(--vc-light-grey);">
+        <input type="text" class="form-control" id="phone" name="phone" placeholder="Enter your phone number" style="background-color: var(--bg-light);">
     </div>
 
     <div class="mb-3" style="max-width: 700px; margin: 0 auto;">
         <label for="message" class="form-label">Message</label>
-        <textarea class="form-control" id="message" name="message" rows="5" placeholder="Enter your message" style="background-color: var(--vc-light-grey);"></textarea>
+        <textarea class="form-control" id="message" name="message" rows="5" placeholder="Enter your message" style="background-color: var(--bg-light); color: var(--black);"></textarea>
     </div>
 
-    <button type="submit" class="btn btn-primary btn-lg px-4 py-2 fw-bold rounded-1 shadow-sm mb-3" style="max-width: 300px; margin: 0 auto; display: block;">
+    <button type="submit" class="btn btn-primary btn-lg px-4 py-2 fw-bold rounded-1 shadow-sm my-5" style="max-width: 300px; margin: 0 auto; display: block;">
         SEND MESSAGE
     </button>
 </form>

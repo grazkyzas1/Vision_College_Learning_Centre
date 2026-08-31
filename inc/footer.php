@@ -24,9 +24,10 @@
             <!--3: Contact Info -->
             <div class="col-12 col-md-4 text-md-end">
                 <div class="d-flex flex-column gap-2 small text-white fw-medium">
-                    <div>📍 21 Ruakura Road, Hamilton East, Hamilton 3216</div>
-                    <div>📞 0800 847 236</div>
-                    <div>✉️ info@visionlearningcentre.ac.nz</div>
+                    <div><i class="fi fi-rr-map-marker-home"></i> 21 Ruakura Road, Hamilton East, Hamilton 3216</div>
+                    <div><i class="fi fi-rr-phone-call"></i> 0800 847 236</div>
+                    <div><i class="fi fi-rr-envelope"></i> info@visionlearningcentre.ac.nz</div>
+
                 </div>
             </div>
 

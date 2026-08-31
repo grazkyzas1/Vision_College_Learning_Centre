@@ -56,7 +56,7 @@ h5,
 h6 {
     font-family: var(--font-heading);
     font-weight: 700;
-    color: var(--vc-dark-blue);
+    color: var(--vc-navy-blue);
     margin-bottom: 0.5rem;
 }
 
@@ -129,4 +129,8 @@ a:hover {
 
 .card.text-white h4 {
     color: var(--white);
+}
+
+input {
+    border: 4px solid var(--black);
 }

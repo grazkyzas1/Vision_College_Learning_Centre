@@ -15,6 +15,7 @@ if (session_status() === PHP_SESSION_NONE) {
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="/css/theme.css">
     <link rel="stylesheet" href="css/floating-totop-button.css">
+    <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/4.0.0/uicons-regular-rounded/css/uicons-regular-rounded.css'>
 </head>
 
 <body>
@@ -29,8 +30,8 @@ if (session_status() === PHP_SESSION_NONE) {
                 <a href="index.php" class="fw-bold nav-box">Home</a>
                 <a href="courses.php" class="fw-bold nav-box">Courses</a>
                 <a href="blogs.php" class="fw-bold nav-box">Blogs</a>
-                <a href="contact.php" class="fw-bold nav-box">Contact us</a>
                 <a href="about.php" class="fw-bold nav-box">About us</a>
+                <a href="contact.php" class="fw-bold nav-box">Contact us</a>
             </nav>
             <?php if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true): ?>
                 <!-- logged in: show dropdown list -->

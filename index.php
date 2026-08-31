@@ -6,7 +6,7 @@ if (session_status() === PHP_SESSION_NONE) {
 <?php require_once(__DIR__ . '/inc/db.php'); ?>
 <?php require_once(__DIR__ . '/inc/header.php'); ?>
 <!-- 1. Hero Section Banner-->
-<section class="my-4">
+<section class="my-1">
     <div class="row align-items-center g-4">
         <div class="col-12 col-md-8">
             <div class="d-flex gap-2">
@@ -19,7 +19,7 @@ if (session_status() === PHP_SESSION_NONE) {
                 WANT TO LEARN ENGLISH<br>OR CHINESE?
             </h4>
             <a href="enquiry.php" class="btn btn-primary btn-lg px-4 py-2 fw-bold rounded-1 shadow-sm">
-                ENQUIRY NOW
+                ENQUIRE NOW
             </a>
         </div>
     </div>
@@ -32,7 +32,7 @@ if (session_status() === PHP_SESSION_NONE) {
 
     <div class="row justify-content-center">
         <div class="col-12 col-md-8 col-lg-6">
-            <h5 class="fw-bold text-primary mb-2">Why Choose Us?</h5>
+            <h5 class="fw-bold mb-2">Why Choose Us?</h5>
             <p class="text-dark opacity-75 mb-1 fw-medium">
                 <strong>Qualified Tutors:</strong> Experienced instructors dedicated to your learning progress.
             </p>
@@ -93,7 +93,7 @@ if (session_status() === PHP_SESSION_NONE) {
 
                                 <div>
                                     <a href="enquiry.php?course_id=<?php echo $course['course_id']; ?>" class="btn btn-light fw-bold text-dark px-4 py-2 shadow-sm rounded-1">
-                                        Enquiry now
+                                        Enquire now
                                     </a>
                                 </div>
                             </div>
@@ -116,7 +116,7 @@ if (session_status() === PHP_SESSION_NONE) {
 <section class="my-5 py-4 text-center">
     <h2 class="fw-bold text-uppercase mb-2" style="letter-spacing: 1.5px;">CONTACT US</h2>
     <p class="fs-5 text-secondary mb-2">Have a question? Please send a question to our team</p>
-    <a href="contact.php" class="fs-5 fw-bold text-decoration-none" style="color: #006093;">
+    <a href="contact.php" class="fs-5 fw-bold text-primary" style="text-decoration: underline;">
         Click here to contact us
     </a>
 </section>
