@@ -21,5 +21,5 @@ if (ini_get("session.use_cookies")) { // Check if session uses cookies
 session_destroy();
 
 // Redirect to the homepage after logout
-header("Location: index.php");
+header("Location: /../admin/login.php");
 exit;

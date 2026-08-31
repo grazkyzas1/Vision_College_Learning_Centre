@@ -83,7 +83,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     <input type="password" class="form-control" id="password" name="password" required>
                 </div>
 
-                <button type="submit" class="btn btn-primary w-100 fw-bold py-2 shadow-sm" style="background-color: var(--vc-navy-blue); border: none;">
+                <button type="submit" class="btn btn-primary w-100 fw-bold py-2 shadow-sm" style="border: none;">
                     Sign In
                 </button>
             </form>

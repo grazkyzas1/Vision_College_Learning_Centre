@@ -51,7 +51,7 @@ if (!isset($_SESSION['user_id'])) {
 
                 <div class="d-flex align-items-center gap-3">
                     <span class="text-white small">Welcome, <strong><?php echo htmlspecialchars($_SESSION['username'] ?? 'Admin'); ?></strong></span>
-                    <a href="../logout.php" class="btn btn-outline-light btn-sm fw-bold">Sign Out</a>
+                    <a href="../admin/logout.php" class="btn btn-outline-light btn-sm fw-bold">Sign Out</a>
                 </div>
             </div>
         </div>
