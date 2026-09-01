@@ -52,7 +52,7 @@ if (session_status() === PHP_SESSION_NONE) {
 
         try {
             // 2. Query PDO
-            $sql = "SELECT course_id, name, target_audience, min_age, max_age, description, image_name FROM course";
+            $sql = "SELECT course_id, name, target_audience, min_age, max_age, description, image FROM course";
             $stmt = $pdo->prepare($sql);
             $stmt->execute();
             $courses = $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -60,7 +60,7 @@ if (session_status() === PHP_SESSION_NONE) {
             if ($courses && count($courses) > 0):
                 foreach ($courses as $course):
                     // Insert image depends course name
-                    $course_image = "/../image/" . $course['image_name'];
+                    $course_image = "/../image/" . $course['image'];
         ?>
                     <div class="col-12 col-md-5 col-lg-4">
                         <div class="card h-100 text-white text-center border-0 shadow" style="background-color: #006093; border-radius: 6px;">

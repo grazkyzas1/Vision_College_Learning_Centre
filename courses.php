@@ -23,7 +23,7 @@ require_once __DIR__ . '/inc/header.php';
             <?php
             try {
                 // get courses from database
-                $sql = "SELECT course_id, name, target_audience, min_age, max_age, description, image_name FROM course ORDER BY course_id ASC";
+                $sql = "SELECT course_id, name, target_audience, min_age, max_age, description, image FROM course ORDER BY course_id ASC";
                 $stmt = $pdo->prepare($sql);
                 $stmt->execute();
                 $courses = $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -31,7 +31,7 @@ require_once __DIR__ . '/inc/header.php';
                 if ($courses && count($courses) > 0):
                     foreach ($courses as $course):
                         // Image selection based on course name
-                        $course_image = "/../image/" . $course['image_name'];
+                        $course_image = "/../image/" . $course['image'];
             ?>
                         <div class="col-12 col-md-6 col-lg-4">
                             <div class="card h-100 text-white text-center border-0 shadow-sm" style="background-color: var(--vc-navy-blue); border-radius: 8px;">

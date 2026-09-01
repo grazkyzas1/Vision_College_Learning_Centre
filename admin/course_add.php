@@ -4,6 +4,11 @@ require_once __DIR__ . '/../inc/admin_header.php';
 require_once __DIR__ . '/../inc/db.php';
 
 try {
+    $user_id = $_SESSION['user_id'];
+} catch (Exception $e) {
+    echo "Error: " . $e->getMessage();
+}
+try {
     $stmt = $pdo->query("SELECT target_audience FROM course");
     $target_audience = $stmt->fetchAll(PDO::FETCH_ASSOC);
 } catch (PDOException $e) {
@@ -24,19 +29,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $min_age = $_POST['min_age'];
     $max_age = $_POST['max_age'];
     $description = $_POST['description'];
-    $campus_id = $_POST['campus'];
-    $image_name = $_POST['image_name'];
+    $image = $_FILES['image']['name'];
 
-    if (!empty($name) && !empty($target_audience) && !empty($min_age) && !empty($campus) && !empty($image_name)) {
+    if (!empty($name)  && !empty($target_audience) && !empty($image) && !empty($description)) {
         try {
-            $stmt = $pdo->prepare("INSERT INTO course (course_name, course_code, target_audience, min_age, max_age, description, campus, image_name) VALUES (:course_name, :course_code, :target_audience, :min_age, :max_age, :description, :campus, :image_name)");
-            $stmt->bindParam(':course_name', $name);
+            $stmt = $pdo->prepare("INSERT INTO course (name, target_audience, min_age, max_age, description, image, user_id) VALUES (:name, :target_audience, :min_age, :max_age, :description, :image, :user_id)");
+            $stmt->bindParam(':name', $name);
             $stmt->bindParam(':target_audience', $target_audience);
             $stmt->bindParam(':min_age', $min_age);
             $stmt->bindParam(':max_age', $max_age);
             $stmt->bindParam(':description', $description);
-            $stmt->bindParam(':campus', $campus);
-            $stmt->bindParam(':image_name', $image_name);
+            $stmt->bindParam(':image', $image);
+            $stmt->bindParam(':user_id', $user_id);
+            move_uploaded_file($_FILES['image']['tmp_name'], '../image/' . $image);
             $stmt->execute();
             $success_msg = "Course added successfully!";
         } catch (PDOException $e) {
@@ -62,7 +67,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     </div>
 </section>
 
-<form method="POST">
+<form method="POST" action="" enctype="multipart/form-data" class="mb-5">
     <div class="mb-3" style="max-width: 700px; margin: 0 auto;">
         <label for="name" class="form-label">Course Name</label>
         <input type="text" class="form-control" id="name" name="name" placeholder="Enter course name" style="background-color: var(--bg-light);">
@@ -74,7 +79,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     </div>
 
     <div class="mb-3" style="max-width: 700px; margin: 0 auto;">
-        <label for="min_age" class="form-label">Minimum Age</label>
+        <label for="min_age" class="form-label">Minimum Age (Optional)</label>
         <input type="number" class="form-control" id="min_age" name="min_age" placeholder="Enter minimum age" style="background-color: var(--bg-light);">
     </div>
 
@@ -84,26 +89,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     </div>
 
     <div class="mb-3" style="max-width: 700px; margin: 0 auto;">
-        <label for="description" class="form-label">Description (Optional)</label>
+        <label for="description" class="form-label">Description</label>
         <textarea class="form-control" id="description" name="description" placeholder="Enter course description" rows="4" style="background-color: var(--bg-light);"></textarea>
     </div>
 
     <div class="mb-3" style="max-width: 700px; margin: 0 auto;">
-        <label for="campus" class="form-label">Campus</label>
-        <?php foreach ($campus as $campus_option): ?>
-            <div class="form-check">
-                <input class="form-check-input" type="checkbox" value="" id="campus">
-                <label class="form-check-label" for="campus">
-                    <?php echo htmlspecialchars($campus_option['name']); ?>
-                </label>
-            </div>
-        <?php endforeach; ?>
-
-    </div>
-
-    <div class="mb-3" style="max-width: 700px; margin: 0 auto;">
-        <label for="image_name" class="form-label">Image of the course</label>
-        <input type="file" class="form-control" id="image_name" name="image_name" placeholder="Enter image name" style="background-color: var(--bg-light);">
+        <label for="image" class="form-label">Image of the course</label>
+        <input type="file" class="form-control" id="image" name="image" placeholder="Upload course image" style="background-color: var(--bg-light);">
     </div>
 
     <button type="submit" class="btn btn-primary btn-lg px-4 py-2 fw-bold rounded-1 shadow-sm my-5" style="max-width: 300px; margin: 0 auto; display: block;">

@@ -9,11 +9,11 @@ $total_enquiries = 0;
 
 try {
     // Count total courses
-    $stmt1 = $pdo->query("SELECT COUNT(*) FROM course");
+    $stmt1 = $pdo->query("SELECT COUNT(course_id) FROM course");
     $total_courses = $stmt1->fetchColumn();
 
     // Count total enquiries
-    $stmt2 = $pdo->query("SELECT COUNT(*) FROM enquiry");
+    $stmt2 = $pdo->query("SELECT COUNT(enquiry_id) FROM enquiry");
     $total_enquiries = $stmt2->fetchColumn();
 } catch (PDOException $e) {
 }
