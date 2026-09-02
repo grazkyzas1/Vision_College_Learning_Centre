@@ -1,4 +1,5 @@
-<footer class="py-4 text-white" style="background-color: #006093;">
+</main>
+<footer class="py-4 text-white mt-auto" style="background-color: #006093;">
     <div class="container">
         <!-- Grid 3 columns-->
         <div class="row gy-4 align-items-start justify-content-between">
@@ -49,5 +50,6 @@
     $(document).ready(function() {
         // Run the plugin to initialize the back-to-top button
         $("body").toTopButton({});
+
     });
 </script>

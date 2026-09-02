@@ -18,7 +18,7 @@ if (session_status() === PHP_SESSION_NONE) {
     <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/4.0.0/uicons-regular-rounded/css/uicons-regular-rounded.css'>
 </head>
 
-<body>
+<body class="d-flex min-vh-100 flex-column">
 
     <header class="bg-white py-3 border-bottom shadow-sm">
         <div class="container-fluid px-4 d-flex align-items-center justify-content-between flex-wrap gap-3">
@@ -84,3 +84,4 @@ if (session_status() === PHP_SESSION_NONE) {
             <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
         </div>
     </header>
+    <main class="flex-grow-1">

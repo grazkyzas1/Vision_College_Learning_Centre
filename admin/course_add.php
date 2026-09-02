@@ -33,13 +33,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     if (!empty($name)  && !empty($target_audience) && !empty($image) && !empty($description)) {
         try {
-            $stmt = $pdo->prepare("INSERT INTO course (name, target_audience, min_age, max_age, description, image, user_id) VALUES (:name, :target_audience, :min_age, :max_age, :description, :image, :user_id)");
+            $stmt = $pdo->prepare("INSERT INTO course (name, target_audience, min_age, max_age, description, image, user_id) VALUES (:name, :target_audience, :min_age, :max_age, :description, :file-input, :user_id)");
             $stmt->bindParam(':name', $name);
             $stmt->bindParam(':target_audience', $target_audience);
             $stmt->bindParam(':min_age', $min_age);
             $stmt->bindParam(':max_age', $max_age);
             $stmt->bindParam(':description', $description);
-            $stmt->bindParam(':image', $image);
+            $stmt->bindParam(':file-input', $image);
             $stmt->bindParam(':user_id', $user_id);
             move_uploaded_file($_FILES['image']['tmp_name'], '../image/' . $image);
             $stmt->execute();
@@ -94,13 +94,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     </div>
 
     <div class="mb-3" style="max-width: 700px; margin: 0 auto;">
-        <label for="image" class="form-label">Image of the course</label>
-        <input type="file" class="form-control" id="image" name="image" placeholder="Upload course image" style="background-color: var(--bg-light);">
-    </div>
+        <label for="file-input" class="form-label">Image of the course</label>
+        <input type="file" class="form-control" id="file-input" name="image" placeholder="Upload course image" style="background-color: var(--bg-light);">
+        <br>
+        <div class="align-items-center justify-content-center text-center">
+            <label for="image-previewer" class="form-label">Image Preview</label>
+            <br>
+            <img style="max-width: 700px; height: auto;" src="/../image/profile.png" alt="Preview Image" id="image-previewer">
+        </div>
 
-    <button type="submit" class="btn btn-primary btn-lg px-4 py-2 fw-bold rounded-1 shadow-sm my-5" style="max-width: 300px; margin: 0 auto; display: block;">
-        ADD COURSE
-    </button>
+        <button type="submit" class="btn btn-primary btn-lg px-4 py-2 fw-bold rounded-1 shadow-sm my-5" style="max-width: 300px; margin: 0 auto; display: block;">
+            ADD COURSE
+        </button>
 </form>
 <?php
 require_once __DIR__ . '/../inc/admin_footer.php';
