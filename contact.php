@@ -5,7 +5,7 @@ if (session_status() === PHP_SESSION_NONE) {
 }
 
 require_once __DIR__ . '/inc/db.php';
-require_once __DIR__ . '/inc/header.php';
+require_once __DIR__ . '/inc/header.html';
 
 $success_msg = "";
 $error_msg = "";
@@ -77,4 +77,4 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         SEND MESSAGE
     </button>
 </form>
-<?php require_once('./inc/footer.php'); ?>
+<?php require_once('./inc/footer.html'); ?>

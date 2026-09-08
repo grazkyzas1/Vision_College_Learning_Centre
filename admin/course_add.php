@@ -8,18 +8,6 @@ try {
 } catch (Exception $e) {
     echo "Error: " . $e->getMessage();
 }
-try {
-    $stmt = $pdo->query("SELECT target_audience FROM course");
-    $target_audience = $stmt->fetchAll(PDO::FETCH_ASSOC);
-} catch (PDOException $e) {
-    echo "Error: " . $e->getMessage();
-}
-try {
-    $stmt = $pdo->query("SELECT name FROM campus");
-    $campus = $stmt->fetchAll(PDO::FETCH_ASSOC);
-} catch (PDOException $e) {
-    echo "Error: " . $e->getMessage();
-}
 $success_msg = "";
 $error_msg = "";
 
@@ -31,20 +19,42 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $description = $_POST['description'];
     $image = $_FILES['image']['name'];
 
-    if (!empty($name)  && !empty($target_audience) && !empty($image) && !empty($description)) {
+    $selected_campuses = $_POST['campus_ids'] ?? [];
+
+
+    if (!empty($name)  && !empty($target_audience) && !empty($image) && !empty($description) && !empty($user_id)) {
         try {
-            $stmt = $pdo->prepare("INSERT INTO course (name, target_audience, min_age, max_age, description, image, user_id) VALUES (:name, :target_audience, :min_age, :max_age, :description, :file-input, :user_id)");
+            $pdo->beginTransaction();
+            $stmt = $pdo->prepare("INSERT INTO course (name, target_audience, min_age, max_age, description, image, user_id) VALUES (:name, :target_audience, :min_age, :max_age, :description, :image, :user_id)");
             $stmt->bindParam(':name', $name);
             $stmt->bindParam(':target_audience', $target_audience);
             $stmt->bindParam(':min_age', $min_age);
             $stmt->bindParam(':max_age', $max_age);
             $stmt->bindParam(':description', $description);
-            $stmt->bindParam(':file-input', $image);
+            $stmt->bindParam(':image', $image);
             $stmt->bindParam(':user_id', $user_id);
-            move_uploaded_file($_FILES['image']['tmp_name'], '../image/' . $image);
+            if (!empty($_FILES['image']['tmp_name'])) {
+                move_uploaded_file($_FILES['image']['tmp_name'], '../image/' . $image);
+            }
             $stmt->execute();
+            $new_course_id = $pdo->lastInsertId();
+            $stmt_all_campus = $pdo->query("SELECT campus_id FROM campus");
+            $all_campuses = $stmt_all_campus->fetchAll(PDO::FETCH_COLUMN, 0);
+            $stmt_campus = $pdo->prepare("INSERT INTO course_location (status, course_id, campus_id) VALUES (:status, :course_id, :campus_id)");
+            foreach ($all_campuses as $campus_id) {
+
+                $status = in_array($campus_id, $selected_campuses) ? 'active' : 'inactive';
+
+                $stmt_campus->bindParam(':status', $status);
+                $stmt_campus->bindParam(':course_id', $new_course_id);
+                $stmt_campus->bindParam(':campus_id', $campus_id);
+                $stmt_campus->execute();
+            }
+
+            $pdo->commit();
             $success_msg = "Course added successfully!";
         } catch (PDOException $e) {
+            $pdo->rollBack();
             $error_msg = "Error: " . $e->getMessage();
         }
     } else {
@@ -73,11 +83,33 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <input type="text" class="form-control" id="name" name="name" placeholder="Enter course name" style="background-color: var(--bg-light);">
     </div>
 
-    <div class="mb-3" style="max-width: 700px; margin: 0 auto;">
-        <label for="target_audience" class="form-label">Target Audience</label>
-        <input type="text" class="form-control" id="target_audience" name="target_audience" placeholder="Enter target audience" style="background-color: var(--bg-light);">
+    <div class="mb-3" id="audience-container" style="max-width: 700px; margin: 0 auto;">
+        <label for="example" class="form-label">Target Audience</label>
+
+        <select name="example" id="example" class="form-select" style="background-color: var(--bg-light);">
+            <option value="<?php ?>">Select One</option>
+            <option value="Other">Other</option>
+        </select>
     </div>
 
+    <script>
+        // Fix input filed for other option in target audience select field
+        document.getElementById('example').addEventListener('change', function() {
+            if (this.value === 'Other') {
+                // Create a new input field
+                const newInput = document.createElement('input');
+                newInput.type = 'text';
+                newInput.name = 'example';
+                newInput.className = 'form-control';
+                newInput.placeholder = 'Enter new target audience...';
+                newInput.style.backgroundColor = 'var(--bg-light)';
+
+                // Replace the select by input field
+                this.parentNode.replaceChild(newInput, this);
+                newInput.focus();
+            }
+        });
+    </script>
     <div class="mb-3" style="max-width: 700px; margin: 0 auto;">
         <label for="min_age" class="form-label">Minimum Age (Optional)</label>
         <input type="number" class="form-control" id="min_age" name="min_age" placeholder="Enter minimum age" style="background-color: var(--bg-light);">
@@ -94,13 +126,33 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     </div>
 
     <div class="mb-3" style="max-width: 700px; margin: 0 auto;">
+        <label for="skills" class="form-label">Campus</label>
+
+
+
+        <select id="skills" name="campus_ids[]" multiple class="form-select">
+            <?php
+            $stmt = $pdo->query("SELECT campus_id, name FROM campus");
+            $campuses = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+            foreach ($campuses as $campus): ?>
+                <option value="<?php echo $campus['campus_id']; ?>">
+                    <?php echo htmlspecialchars($campus['name']); ?>
+                </option>
+            <?php endforeach; ?>
+        </select>
+    </div>
+
+
+
+    <div class="mb-3" style="max-width: 700px; margin: 0 auto;">
         <label for="file-input" class="form-label">Image of the course</label>
         <input type="file" class="form-control" id="file-input" name="image" placeholder="Upload course image" style="background-color: var(--bg-light);">
         <br>
         <div class="align-items-center justify-content-center text-center">
             <label for="image-previewer" class="form-label">Image Preview</label>
             <br>
-            <img style="max-width: 700px; height: auto;" src="/../image/profile.png" alt="Preview Image" id="image-previewer">
+            <img style="max-width: 300px; height: auto;" src="/../image/profile.png" alt="Preview Image" id="image-previewer">
         </div>
 
         <button type="submit" class="btn btn-primary btn-lg px-4 py-2 fw-bold rounded-1 shadow-sm my-5" style="max-width: 300px; margin: 0 auto; display: block;">

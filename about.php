@@ -5,7 +5,7 @@ if (session_status() === PHP_SESSION_NONE) {
 }
 
 require_once __DIR__ . '/inc/db.php';
-require_once __DIR__ . '/inc/header.php';
+require_once __DIR__ . '/inc/header.html';
 ?>
 <!-- Page Header -->
 <section class="py-4 bg-light border-bottom mb-5">
@@ -63,4 +63,4 @@ require_once __DIR__ . '/inc/header.php';
     </div>
     </section>
 
-    <?php require_once('./inc/footer.php'); ?>
+    <?php require_once('./inc/footer.html'); ?>
