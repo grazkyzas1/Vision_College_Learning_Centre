@@ -1,35 +1,58 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
-    <!-- depends device -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Vision College Learning Centre</title>
+    <!-- Bootstrap 5 CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Local CSS -->
     <link rel="stylesheet" href="/css/theme.css">
+    <!-- jQuery plugin for floating button -->
     <link rel="stylesheet" href="css/floating-totop-button.css">
+    <!-- icon -->
     <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/4.0.0/uicons-regular-rounded/css/uicons-regular-rounded.css'>
+    <!-- summer note -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.9/summernote-bs4.css" rel="stylesheet">
 </head>
-
 <body class="d-flex min-vh-100 flex-column">
-    <header class="bg-white py-3 border-bottom shadow-sm">
-        <div class="container-fluid px-4 d-flex align-items-center justify-content-between flex-wrap gap-3">
-            <a href="index.php">
-                <img src="/../image/VCLC_Light Blue.png" width="150" height="90" alt="Vision College Logo" style="object-fit: contain;">
-            </a>
-            <!-- navbar -->
-            <nav class=" d-flex gap-4 flex-wrap">
-                <a href="index.php" class="fw-bold nav-box">Home</a>
-                <a href="courses.php" class="fw-bold nav-box">Courses</a>
-                <a href="blogs.php" class="fw-bold nav-box">Blogs</a>
-                <a href="about.php" class="fw-bold nav-box">About us</a>
-                <a href="contact.php" class="fw-bold nav-box">Contact us</a>
-            </nav>
-            <a href="enquiry.php" class="btn btn-primary btn-lg px-4 py-2 fw-bold rounded-1 shadow-sm">
-                ENQUIRE NOW
-            </a>
-            <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
-        </div>
+    <!-- display flex min height 100 flex column -->
+    <header class="bg-white border-bottom shadow-sm">
+        <!-- small -->
+        <nav class="navbar navbar-expand-lg navbar-light py-2">
+            <!-- 992px -->
+            <div class="container-fluid px-4">
+                <!-- make sure content is centered -->
+                <!-- Logo -->
+                <a class="navbar-brand me-4" href="index.php">
+                    <img src="/../image/VCLC_Navy.png" width="150" height="75" alt="Vision College Logo" style="object-fit: contain;">
+                    <!-- keep image fit -->
+                </a>
+                <!-- hamburger mobile -->
+                <button class="navbar-toggler border-0 shadow-none" type="button" data-bs-toggle="collapse" data-bs-target="#clientNavbar" aria-controls="clientNavbar" aria-expanded="false" aria-label="Toggle navigation">
+                    <!-- open and close hamburger, set id for menu -->
+                    <span class="navbar-toggler-icon"></span>
+                    <!-- hamburger -->
+                </button>
+                <!-- menu links-->
+                <div class="collapse navbar-collapse" id="clientNavbar">
+                    <!-- hide menu in mobile, use this id to control,  -->
+                    <div class="navbar-nav mx-auto mb-2 mb-lg-0 gap-3 fw-bold align-items-lg-center">
+                        <a href="index.php" class="fw-bold nav-box">Home</a>
+                        <a href="courses.php" class="fw-bold nav-box">Courses</a>
+                        <a href="blogs.php" class="fw-bold nav-box">Blogs</a>
+                        <a href="about.php" class="fw-bold nav-box">About us</a>
+                        <a href="policy.php" class="fw-bold nav-box">Policy</a>
+                        <a href="contact.php" class="fw-bold nav-box">Contact us</a>
+                    </div>
+                    <div class="d-flex mt-3 mt-lg-0">
+                        <a href="enquiry.php" class="btn btn-primary btn-lg px-4 py-2 fw-bold rounded-1 shadow-sm w-100 text-center">
+                            ENQUIRE NOW
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </nav>
     </header>
     <main class="flex-grow-1">
+        <!-- make sure footer on the bottom -->

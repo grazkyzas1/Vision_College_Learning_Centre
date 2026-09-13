@@ -1,60 +1,54 @@
 <?php
-// Courses Page
-if (session_status() === PHP_SESSION_NONE) {
-    session_start();
-}
-
 require_once __DIR__ . '/inc/db.php';
 require_once __DIR__ . '/inc/header.html';
 ?>
-
-<!-- Page Header -->
+<!--top of the page-->
 <section class="py-4 bg-light border-bottom mb-5">
     <div class="container text-center">
         <h2 class="fw-bold mb-2" style="letter-spacing: 1.5px; color: var(--vc-navy-blue);">OUR COURSES</h2>
         <p class="fs-5 mb-0">Explore our available language courses and start learning today.</p>
     </div>
 </section>
-
-<!-- Courses Grid Section -->
+<!--courses-->
 <section class="mb-5">
     <div class="container">
         <div class="row g-4 justify-content-center">
             <?php
             try {
-                // get courses from database
-                $sql = "SELECT * FROM course INNER JOIN target_audience ON course.target_audience_id = target_audience.target_audience_id ORDER BY course_id ASC";
+                // get courses and target audience from database
+                $sql = "SELECT course.*, course.name AS course_name, target_audience.name AS target_audience_name FROM course LEFT JOIN target_audience ON course.target_audience_id = target_audience.target_audience_id ORDER BY course.course_id ASC";
                 $stmt = $pdo->prepare($sql);
                 $stmt->execute();
                 $courses = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
                 if ($courses && count($courses) > 0):
                     foreach ($courses as $course):
-                        // Image selection based on course name
+                        // image
                         $course_image = "/../image/" . $course['image_name'];
             ?>
                         <div class="col-12 col-md-6 col-lg-4">
                             <div class="card h-100 text-white text-center border-0 shadow-sm" style="background-color: var(--vc-navy-blue); border-radius: 8px;">
                                 <div class="p-3">
-                                    <img src="<?php echo $course_image; ?>"
-                                        class="card-img-top rounded"
-                                        style="height: 180px; object-fit: cover;"
-                                        alt="<?php echo htmlspecialchars($course['name']); ?>">
+                                    <a href="course_detail.php?course_id=<?php echo $course['course_id']; ?>">
+                                        <img src="<?php echo $course_image; ?>"
+                                            class="card-img-top rounded"
+                                            style="height: 180px; object-fit: cover;"
+                                            alt="<?php echo htmlspecialchars($course['course_name']); ?>">
+                                    </a>
                                 </div>
                                 <div class="card-body d-flex flex-column justify-content-between pt-0 pb-4">
                                     <div>
                                         <h4 class="card-title fw-bold mb-3 text-white">
-                                            <?php echo htmlspecialchars($course['name']); ?>
+                                            <a href="course_detail.php?course_id=<?php echo $course['course_id']; ?>" class="text-decoration-none text-white">
+                                                <?php echo htmlspecialchars($course['course_name']); ?>
+                                            </a>
                                         </h4>
-
-                                        <?php if (!empty($course['target_audience'])): ?>
-                                            <p class="fs-6 opacity-90 mb-2">
-                                                <strong>Audience:</strong> <?php echo htmlspecialchars($course['target_audience']); ?>
+                                        <?php if (!empty($course['target_audience_name'])): ?>
+                                            <p class="opacity-90 mb-2">
+                                                <strong>Audience:</strong> <?php echo htmlspecialchars($course['target_audience_name']); ?>
                                             </p>
                                         <?php endif; ?>
-
                                         <?php if (!empty($course['min_age']) || !empty($course['max_age'])): ?>
-                                            <p class="fs-6 opacity-90 mb-3">
+                                            <p class="opacity-90 mb-3">
                                                 <strong>Age Group:</strong>
                                                 <?php
                                                 if (!empty($course['min_age']) && !empty($course['max_age'])) {
@@ -67,14 +61,19 @@ require_once __DIR__ . '/inc/header.html';
                                                 ?>
                                             </p>
                                         <?php endif; ?>
-
+                                        <!-- get short description from description-->
                                         <?php if (!empty($course['description'])): ?>
-                                            <p class="small text-white-50 px-2 mb-3">
-                                                <?php echo htmlspecialchars($course['description']); ?>
+                                            <?php
+                                            // get short description by explode in description
+                                            $desc_parts = explode('[BREAK]', $course['description']);
+                                            // get summary before break, will move out html tags
+                                            $short_desc = strip_tags(trim($desc_parts[0]));
+                                            ?>
+                                            <p class="small text-white-50 px-2 mb-3" style="line-height: 1.4;">
+                                                <?php echo htmlspecialchars($short_desc); ?>
                                             </p>
                                         <?php endif; ?>
                                     </div>
-
                                     <div>
                                         <a href="enquiry.php?course_id=<?php echo $course['course_id']; ?>"
                                             class="btn btn-light fw-bold text-dark px-4 py-2 shadow-sm rounded-1">
@@ -100,5 +99,4 @@ require_once __DIR__ . '/inc/header.html';
         </div>
     </div>
 </section>
-
 <?php require_once __DIR__ . '/inc/footer.html'; ?>

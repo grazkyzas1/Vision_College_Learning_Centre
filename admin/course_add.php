@@ -61,6 +61,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $error_msg = "Please fill in all required fields.";
     }
 }
+$stmt = $pdo->query("SELECT * FROM target_audience");
+$target_audiences = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
 ?>
 <!-- form notification -->
 <?php if (!empty($success_msg)): ?>
@@ -87,10 +90,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <label for="example" class="form-label">Target Audience</label>
 
         <select name="example" id="example" class="form-select" style="background-color: var(--bg-light);">
-            <option value="<?php ?>">Select One</option>
+            <?php foreach ($target_audiences as $audience): ?>
+                <option value="<?php echo $audience['target_audience_id']; ?>">
+                    <?php echo htmlspecialchars($audience['name']); ?>
+                </option>
+            <?php endforeach; ?>
             <option value="Other">Other</option>
         </select>
     </div>
+
+
 
     <script>
         // Fix input filed for other option in target audience select field
@@ -130,7 +139,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 
 
-        <select id="skills" name="campus_ids[]" multiple class="form-select">
+        <select id="skills" name="SkillIds" multiple class="form-select">
             <?php
             $stmt = $pdo->query("SELECT campus_id, name FROM campus");
             $campuses = $stmt->fetchAll(PDO::FETCH_ASSOC);

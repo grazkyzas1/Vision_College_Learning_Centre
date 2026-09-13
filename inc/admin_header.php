@@ -22,7 +22,6 @@ if (!isset($_SESSION['user_id'])) {
     <link rel="stylesheet" href="css/floating-totop-button.css">
     <link rel="stylesheet" href="/css/InterActiveMultiSelect.css">
     <link rel="stylesheet" href="/css/InterActiveMultiSelect.min.css">
-
 </head>
 
 <body class="bg-light d-flex flex-column min-vh-100">
@@ -35,7 +34,8 @@ if (!isset($_SESSION['user_id'])) {
                 <span class="border-start ps-2 fs-6 fw-normal text-white-50">Admin Panel</span>
             </a>
 
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#adminNavbar">
+            <!-- Hamburger Button (Mobile) -->
+            <button class="navbar-toggler border-0 shadow-none" type="button" data-bs-toggle="collapse" data-bs-target="#adminNavbar" aria-controls="adminNavbar" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
 
@@ -52,7 +52,7 @@ if (!isset($_SESSION['user_id'])) {
                     </li>
                 </ul>
 
-                <div class="d-flex align-items-center gap-3">
+                <div class="d-flex align-items-center gap-3 mt-3 mt-lg-0">
                     <span class="text-white small">Welcome, <strong><?php echo htmlspecialchars($_SESSION['username'] ?? 'Admin'); ?></strong></span>
                     <a href="../admin/logout.php" class="btn btn-outline-light btn-sm fw-bold">Sign Out</a>
                 </div>

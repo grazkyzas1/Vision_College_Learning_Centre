@@ -1,13 +1,11 @@
 <?php
-// About Page
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
-
 require_once __DIR__ . '/inc/db.php';
 require_once __DIR__ . '/inc/header.html';
 ?>
-<!-- Page Header -->
+<!--top-->
 <section class="py-4 bg-light border-bottom mb-5">
     <div class="container text-center">
         <h2 class="fw-bold mb-2" style="letter-spacing: 1.5px; color: var(--vc-navy-blue);">About Vision College Learning Centre</h2>
@@ -61,6 +59,5 @@ require_once __DIR__ . '/inc/header.html';
             </div>
         </div>
     </div>
-    </section>
-
-    <?php require_once('./inc/footer.html'); ?>
+</div>
+<?php require_once('./inc/footer.html'); ?>

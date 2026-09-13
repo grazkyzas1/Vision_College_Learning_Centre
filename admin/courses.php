@@ -32,10 +32,11 @@ if (isset($_GET['action']) && $_GET['action'] === 'delete' && !empty($_GET['id']
 }
 
 // 2. Query to get all courses with their active campuses
-$sql = "SELECT course.*, GROUP_CONCAT(campus.name) AS active_campuses
+$sql = "SELECT course.*, GROUP_CONCAT(campus.name) AS active_campuses, target_audience.name AS target_audience_name, target_audience.min_age, target_audience.max_age
         FROM course
         LEFT JOIN course_location ON course.course_id = course_location.course_id AND course_location.status = 'active'
         LEFT JOIN campus ON course_location.campus_id = campus.campus_id
+        LEFT JOIN target_audience ON course.target_audience_id = target_audience.target_audience_id
         GROUP BY course.course_id
         ORDER BY course.course_id DESC";
 
@@ -82,7 +83,7 @@ $courses = $stmt->fetchAll(PDO::FETCH_ASSOC);
                         <?php foreach ($courses as $course): ?>
                             <tr>
                                 <td class="ps-3">
-                                    <img src="../image/<?php echo htmlspecialchars($course['image'] ?: 'profile.png'); ?>"
+                                    <img src="../image/<?php echo htmlspecialchars($course['image_name'] ?: 'profile.png'); ?>"
                                         alt="Course Image"
                                         style="width: 60px; height: 40px; object-fit: cover;"
                                         class="rounded border">
@@ -91,7 +92,7 @@ $courses = $stmt->fetchAll(PDO::FETCH_ASSOC);
                                     <strong><?php echo htmlspecialchars($course['name']); ?></strong>
                                 </td>
                                 <td>
-                                    <span class="badge bg-info text-dark"><?php echo htmlspecialchars($course['target_audience']); ?></span>
+                                    <span class="badge bg-info text-dark"><?php echo htmlspecialchars($course['target_audience_name']); ?></span>
                                 </td>
                                 <td>
                                     <?php

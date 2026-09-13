@@ -99,7 +99,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 }
 
 // 3. Get course details from database to pre-fill the form
-$stmt_course = $pdo->prepare("SELECT * FROM course WHERE course_id = :course_id");
+$stmt_course = $pdo->prepare("SELECT course.*, target_audience.name as target_audience_name, target_audience.min_age, target_audience.max_age FROM course LEFT JOIN target_audience ON course.target_audience_id = target_audience.target_audience_id WHERE course_id = :course_id");
 $stmt_course->bindParam(':course_id', $course_id);
 $stmt_course->execute();
 $course = $stmt_course->fetch(PDO::FETCH_ASSOC);
@@ -135,7 +135,7 @@ $active_campuses = $stmt_active_campuses->fetchAll(PDO::FETCH_COLUMN, 0);
 
 <form method="POST" action="" enctype="multipart/form-data" class="mb-5">
     <!-- Show current image but in the input, hidden it because admin need to update new image, because admin only check image, not check name -->
-    <input type="hidden" name="current_image" value="<?php echo htmlspecialchars($course['image']); ?>">
+    <input type="hidden" name="current_image" value="<?php echo htmlspecialchars($course['image_name']); ?>">
 
     <div class="mb-3" style="max-width: 700px; margin: 0 auto;">
         <label for="name" class="form-label">Course Name</label>
@@ -144,7 +144,7 @@ $active_campuses = $stmt_active_campuses->fetchAll(PDO::FETCH_COLUMN, 0);
 
     <div class="mb-3" style="max-width: 700px; margin: 0 auto;">
         <label for="target_audience" class="form-label">Target Audience</label>
-        <input type="text" class="form-control" id="target_audience" name="target_audience" value="<?php echo htmlspecialchars($course['target_audience']); ?>" required style="background-color: var(--bg-light);">
+        <input type="text" class="form-control" id="target_audience" name="target_audience" value="<?php echo htmlspecialchars($course['target_audience_name']); ?>" required style="background-color: var(--bg-light);">
     </div>
 
     <div class="mb-3" style="max-width: 700px; margin: 0 auto;">
@@ -186,7 +186,7 @@ $active_campuses = $stmt_active_campuses->fetchAll(PDO::FETCH_COLUMN, 0);
         <div class="align-items-center justify-content-center text-center">
             <label for="image-previewer" class="form-label">Current / Preview Image</label>
             <br>
-            <img style="max-width: 700px; height: auto;" src="../image/<?php echo htmlspecialchars($course['image']); ?>" alt="Preview Image" id="image-previewer">
+            <img style="max-width: 700px; height: auto;" src="../image/<?php echo htmlspecialchars($course['image_name']); ?>" alt="Preview Image" id="image-previewer">
         </div>
 
         <button type="submit" class="btn btn-primary btn-lg px-4 py-2 fw-bold rounded-1 shadow-sm my-5" style="max-width: 300px; margin: 0 auto; display: block;">

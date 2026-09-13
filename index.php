@@ -1,37 +1,32 @@
-<?php
-// start session
-if (session_status() === PHP_SESSION_NONE) {
-    session_start();
-} ?>
 <?php require_once(__DIR__ . '/inc/db.php'); ?>
 <?php require_once(__DIR__ . '/inc/header.html'); ?>
-<!-- 1. Hero Section Banner-->
-<section class="my-1 mx-1">
-    <div class="row align-items-center g-4">
-        <div class="col-12 col-md-8">
-            <div class="d-flex gap-2">
-                <img src="/../image/english_course.png" class="img-fluid rounded shadow-sm w-50" style="object-fit: cover; height: 260px;" alt="Students learning">
-                <img src="/../image/chinese_course.png" class="img-fluid rounded shadow-sm w-50" style="object-fit: cover; height: 260px;" alt="Students talking">
+<!-- banner -->
+<section class="my-3">
+    <div class="container">
+        <div class="row align-items-center g-4">
+            <div class="col-12 col-md-8">
+                <div class="d-flex gap-2">
+                    <img src="/../image/english_course.png" class="img-fluid rounded shadow-sm w-50" style="object-fit: cover; height: 260px;" alt="Students learning">
+                    <img src="/../image/chinese_course.png" class="img-fluid rounded shadow-sm w-50" style="object-fit: cover; height: 260px;" alt="Students talking">
+                    <!-- the image can resize to fit with devices -->
+                </div>
+            </div>
+            <div class="col-12 col-md-4 text-center">
+                <h4 class="fw-bold mb-3" style="letter-spacing: 1px;">
+                    WANT TO LEARN ENGLISH<br>OR CHINESE?
+                </h4>
+                <a href="enquiry.php" class="btn btn-primary btn-lg px-4 py-2 fw-bold rounded-1 shadow-sm">
+                    ENQUIRE NOW
+                </a>
             </div>
         </div>
-        <div class="col-12 col-md-4 text-center">
-            <h4 class="fw-bold mb-3 tracking-wide" style="letter-spacing: 1px;">
-                WANT TO LEARN ENGLISH<br>OR CHINESE?
-            </h4>
-            <a href="enquiry.php" class="btn btn-primary btn-lg px-4 py-2 fw-bold rounded-1 shadow-sm">
-                ENQUIRE NOW
-            </a>
-        </div>
     </div>
-
 </section>
-<!-- 2. About Us Section -->
+<!--about us-->
 <section class="my-5 py-3 text-center">
-
     <div class="container">
         <h2 class="fw-bold text-uppercase mb-2" style="letter-spacing: 1.5px;">ABOUT US</h2>
         <p class="fs-5 text-secondary mb-4">A vibrant, fun learning environment to grow and develop.</p>
-
         <div class="row justify-content-center">
             <div class="col-12 col-md-8 col-lg-6">
                 <h5 class="fw-bold mb-2">Why Choose Us?</h5>
@@ -45,50 +40,49 @@ if (session_status() === PHP_SESSION_NONE) {
         </div>
     </div>
 </section>
-
-<!-- 3. All Courses Section -->
+<!--main courses-->
 <section class="my-5">
-    <h2 class="fw-bold text-uppercase text-center mb-4" style="letter-spacing: 1.5px;">ALL COURSES</h2>
-
-    <!-- Courses Grid Section -->
+    <h2 class="fw-bold text-uppercase text-center mb-4" style="letter-spacing: 1.5px;">MAIN COURSES</h2>
+    <!-- courses grid -->
     <section class="mb-5">
         <div class="container">
             <div class="row g-4 justify-content-center">
                 <?php
                 try {
-                    // get courses from database and target audience from target_audience table
-                    $sql = "SELECT * FROM course INNER JOIN target_audience ON course.target_audience_id = target_audience.target_audience_id ORDER BY course_id ASC";
+                    // get courses and target audience from database
+                    $sql = "SELECT course.*, course.name AS course_name, target_audience.name AS target_audience_name FROM course LEFT JOIN target_audience ON course.target_audience_id = target_audience.target_audience_id ORDER BY course.course_id ASC LIMIT 2";
                     $stmt = $pdo->prepare($sql);
                     $stmt->execute();
                     $courses = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
                     if ($courses && count($courses) > 0):
                         foreach ($courses as $course):
-                            // Image selection based on course name
+                            // image
                             $course_image = "/../image/" . $course['image_name'];
                 ?>
                             <div class="col-12 col-md-6 col-lg-4">
                                 <div class="card h-100 text-white text-center border-0 shadow-sm" style="background-color: var(--vc-navy-blue); border-radius: 8px;">
                                     <div class="p-3">
-                                        <img src="<?php echo $course_image; ?>"
-                                            class="card-img-top rounded"
-                                            style="height: 180px; object-fit: cover;"
-                                            alt="<?php echo htmlspecialchars($course['name']); ?>">
+                                        <a href="course_detail.php?course_id=<?php echo $course['course_id']; ?>">
+                                            <img src="<?php echo $course_image; ?>"
+                                                class="card-img-top rounded"
+                                                style="height: 180px; object-fit: cover;"
+                                                alt="<?php echo htmlspecialchars($course['course_name']); ?>">
+                                        </a>
                                     </div>
                                     <div class="card-body d-flex flex-column justify-content-between pt-0 pb-4">
                                         <div>
                                             <h4 class="card-title fw-bold mb-3 text-white">
-                                                <?php echo htmlspecialchars($course['name']); ?>
+                                                <a href="course_detail.php?course_id=<?php echo $course['course_id']; ?>" class="text-decoration-none text-white">
+                                                    <?php echo htmlspecialchars($course['course_name']); ?>
+                                                </a>
                                             </h4>
-
-                                            <?php if (!empty($course['target_audience'])): ?>
-                                                <p class="fs-6 opacity-90 mb-2">
-                                                    <strong>Audience:</strong> <?php echo htmlspecialchars($course['name']); ?>
+                                            <?php if (!empty($course['target_audience_name'])): ?>
+                                                <p class="opacity-90 mb-2">
+                                                    <strong>Audience:</strong> <?php echo htmlspecialchars($course['target_audience_name']); ?>
                                                 </p>
                                             <?php endif; ?>
-
                                             <?php if (!empty($course['min_age']) || !empty($course['max_age'])): ?>
-                                                <p class="fs-6 opacity-90 mb-3">
+                                                <p class="opacity-90 mb-3">
                                                     <strong>Age Group:</strong>
                                                     <?php
                                                     if (!empty($course['min_age']) && !empty($course['max_age'])) {
@@ -101,14 +95,19 @@ if (session_status() === PHP_SESSION_NONE) {
                                                     ?>
                                                 </p>
                                             <?php endif; ?>
-
+                                            <!-- get short description from description-->
                                             <?php if (!empty($course['description'])): ?>
-                                                <p class="small text-white-50 px-2 mb-3">
-                                                    <?php echo htmlspecialchars($course['description']); ?>
+                                                <?php
+                                                // get short description by explode in description
+                                                $desc_parts = explode('[BREAK]', $course['description']);
+                                                // get summary before break, will move out html tags
+                                                $short_desc = strip_tags(trim($desc_parts[0]));
+                                                ?>
+                                                <p class="small text-white-50 px-2 mb-3" style="line-height: 1.4;">
+                                                    <?php echo htmlspecialchars($short_desc); ?>
                                                 </p>
                                             <?php endif; ?>
                                         </div>
-
                                         <div>
                                             <a href="enquiry.php?course_id=<?php echo $course['course_id']; ?>"
                                                 class="btn btn-light fw-bold text-dark px-4 py-2 shadow-sm rounded-1">
@@ -134,13 +133,13 @@ if (session_status() === PHP_SESSION_NONE) {
             </div>
         </div>
     </section>
-    <!-- 4. Contact Us Section -->
+    <!--contact us-->
     <section class="my-5 py-4 text-center">
         <h2 class="fw-bold text-uppercase mb-2" style="letter-spacing: 1.5px;">CONTACT US</h2>
         <p class="fs-5 text-secondary mb-2">Have a question? Please send a question to our team</p>
-        <a href="contact.php" class="fs-5 fw-bold text-primary" style="text-decoration: underline;">
+        <a href="contact.php" class="fs-5 fw-bold nav-box">
             Click here to contact us
         </a>
     </section>
-
-    <?php require_once('./inc/footer.html'); ?>
+</section>
+<?php require_once('./inc/footer.html'); ?>
