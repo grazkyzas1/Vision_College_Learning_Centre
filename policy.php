@@ -1,5 +1,23 @@
+<?php
+
+/**
+ * Description: Policy of this website.
+ * Author: An Bao Le
+ */
+?>
 <?php require_once(__DIR__ . '/inc/db.php'); ?>
 <?php require_once(__DIR__ . '/inc/header.html'); ?>
+<!--breadcrumb-->
+<div class="bg-light py-2 border-bottom">
+    <div class="container">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb mb-0 small">
+                <li class="breadcrumb-item"><a href="index.php" class="text-decoration-none">Home</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Blogs</li>
+            </ol>
+        </nav>
+    </div>
+</div>
 <div class="container py-5">
     <h1>Privacy Policy</h1>
     <p>Last updated: September 09, 2026</p>
@@ -226,7 +244,7 @@
     <h2>Contact Us</h2>
     <p>If You have any questions about this Privacy Policy, You can contact Us:</p>
     <ul>
-        <li>By email: nguyenhuusang24680@gmail.com</li>
+        <li>By email: info@visionlearningcentre.ac.nz</li>
     </ul>
 </div>
 <div class="container py-5 text-center">

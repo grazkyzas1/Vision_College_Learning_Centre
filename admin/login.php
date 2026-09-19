@@ -1,33 +1,34 @@
 <?php
+
+/**
+ * Description: Check admin login.
+ * Author: An Bao Le
+ */
+?>
+<?php
 // Admin Sign in
 session_start();
-
-
 require_once __DIR__ . '/../inc/db.php';
-
 // Check admin
 if (isset($_SESSION['user_id'])) {
     header("Location: dashboard.php");
     exit;
 }
-
 $error = '';
-
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $email = trim($_POST['email'] ?? '');
     $password = trim($_POST['password'] ?? '');
-
     if (!empty($email) && !empty($password)) {
         try {
-            // Find email depends user
+            // find email
             $stmt = $pdo->prepare("SELECT * FROM user WHERE email = :email LIMIT 1");
             $stmt->execute([':email' => $email]);
             $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
-            // Get password hash from database
+            //  get password
             $db_hashed_password = $user['password_hash'] ?? null;
 
-            // Verify password
+            // verify password
             if ($user && $db_hashed_password && password_verify($password, $db_hashed_password)) {
 
                 // Set session variables for logged-in user
@@ -63,7 +64,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <div class="card shadow border-0 rounded-3" style="width: 100%; max-width: 400px;">
         <div class="card-body p-4 text-center">
 
-            <img src="../image/VCLC_Light Blue.png" alt="Vision College Logo" width="140" class="mb-3">
+            <img src="../image/VCLC_Navy.png" alt="Vision College Logo" width="140" class="mb-3">
             <h4 class="fw-bold mb-4" style="color: var(--vc-navy-blue);">ADMIN SIGN IN</h4>
 
             <?php if (!empty($error)): ?>

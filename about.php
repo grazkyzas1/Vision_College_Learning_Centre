@@ -1,10 +1,28 @@
 <?php
+
+/**
+ * Description: About the Vision Learning Centre.
+ * Author: An Bao Le
+ */
+?>
+<?php
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
 require_once __DIR__ . '/inc/db.php';
 require_once __DIR__ . '/inc/header.html';
 ?>
+<!--breadcrumb-->
+<div class="bg-light py-2 border-bottom">
+    <div class="container">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb mb-0 small">
+                <li class="breadcrumb-item"><a href="index.php" class="text-decoration-none">Home</a></li>
+                <li class="breadcrumb-item active text-dark" aria-current="page">About us</li>
+            </ol>
+        </nav>
+    </div>
+</div>
 <!--top-->
 <section class="py-4 bg-light border-bottom mb-5">
     <div class="container text-center">

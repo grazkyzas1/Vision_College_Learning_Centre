@@ -1,4 +1,11 @@
 <?php
+
+/**
+ * Description: this file will check active campus for enquiry.
+ * Author: An Bao Le
+ */
+?>
+<?php
 require_once __DIR__ . '/inc/db.php';
 header('Content-Type: application/json');
 $course_id = $_GET['course_id'] ?? null;

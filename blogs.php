@@ -1,7 +1,25 @@
 <?php
+
+/**
+ * Description: This page will show all news or blogs in Centre.
+ * Author: An Bao Le
+ */
+?>
+<?php
 require_once __DIR__ . '/inc/db.php';
 require_once __DIR__ . '/inc/header.html';
 ?>
+<!--breadcrumb-->
+<div class="bg-light py-2 border-bottom">
+    <div class="container">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb mb-0 small">
+                <li class="breadcrumb-item"><a href="index.php" class="text-decoration-none">Home</a></li>
+                <li class="breadcrumb-item active text-dark" aria-current="page">Blogs</li>
+            </ol>
+        </nav>
+    </div>
+</div>
 <!--top-->
 <section class="py-4 bg-light border-bottom mb-5">
     <div class="container text-center">
@@ -10,6 +28,6 @@ require_once __DIR__ . '/inc/header.html';
     </div>
 </section>
 <div class="col-12 text-center py-5">
-    <p class="text-muted fs-5">No blog posts available at the moment. Please check back later!</p>
+    <p class="fs-5 text-dark">No blog posts available at the moment. Please check back later!</p>
 </div>
 <?php require_once __DIR__ . '/inc/footer.html'; ?>

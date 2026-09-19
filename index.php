@@ -1,3 +1,10 @@
+<?php
+
+/**
+ * Description: Homepage in the customer front end.
+ * Author: An Bao Le
+ */
+?>
 <?php require_once(__DIR__ . '/inc/db.php'); ?>
 <?php require_once(__DIR__ . '/inc/header.html'); ?>
 <!-- banner -->
@@ -25,11 +32,12 @@
 <!--about us-->
 <section class="my-5 py-3 text-center">
     <div class="container">
+        <h1>Welcome to Vision College Learning Centre</h1><br>
         <h2 class="fw-bold text-uppercase mb-2" style="letter-spacing: 1.5px;">ABOUT US</h2>
-        <p class="fs-5 text-secondary mb-4">A vibrant, fun learning environment to grow and develop.</p>
+        <p class="fs-5 mb-4">A vibrant, fun learning environment to grow and develop.</p>
         <div class="row justify-content-center">
             <div class="col-12 col-md-8 col-lg-6">
-                <h5 class="fw-bold mb-2">Why Choose Us?</h5>
+                <h3 class="fw-bold mb-2">Why Choose Us?</h3>
                 <p class="text-dark opacity-75 mb-1 fw-medium">
                     <strong>Qualified Tutors:</strong> Experienced instructors dedicated to your learning progress.
                 </p>
@@ -49,14 +57,33 @@
             <div class="row g-4 justify-content-center">
                 <?php
                 try {
-                    // get courses and target audience from database
-                    $sql = "SELECT course.*, course.name AS course_name, target_audience.name AS target_audience_name FROM course LEFT JOIN target_audience ON course.target_audience_id = target_audience.target_audience_id ORDER BY course.course_id ASC LIMIT 2";
+                    // get course and target audience, limit 2 courses, use concat to create a string store ta, age group
+                    $sql = "SELECT course.*, course.name AS course_name, 
+                            GROUP_CONCAT(DISTINCT ta.name SEPARATOR ', ') AS target_audience_names,
+                            GROUP_CONCAT(
+                                DISTINCT 
+                                CASE 
+                                    WHEN ta.min_age IS NOT NULL AND ta.max_age IS NOT NULL THEN CONCAT(ta.min_age, ' - ', ta.max_age, ' years')
+                                    WHEN ta.min_age IS NOT NULL THEN CONCAT('From ', ta.min_age, ' years')
+                                    WHEN ta.max_age IS NOT NULL THEN CONCAT('Up to ', ta.max_age, ' years')
+                                    ELSE ''
+                                END 
+                                ORDER BY ta.min_age ASC 
+                                SEPARATOR ', '
+                            ) AS age_group_names
+                            FROM course 
+                            LEFT JOIN course_target_audience ON course.course_id = course_target_audience.course_id
+                            LEFT JOIN target_audience ta ON course_target_audience.target_audience_id = ta.target_audience_id 
+                            WHERE course.is_main = 1 
+                            GROUP BY course.course_id
+                            ORDER BY course.course_id ASC 
+                            LIMIT 2";
                     $stmt = $pdo->prepare($sql);
                     $stmt->execute();
                     $courses = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
                     if ($courses && count($courses) > 0):
                         foreach ($courses as $course):
-                            // image
                             $course_image = "/../image/" . $course['image_name'];
                 ?>
                             <div class="col-12 col-md-6 col-lg-4">
@@ -76,34 +103,28 @@
                                                     <?php echo htmlspecialchars($course['course_name']); ?>
                                                 </a>
                                             </h4>
-                                            <?php if (!empty($course['target_audience_name'])): ?>
+
+                                            <!-- audience -->
+                                            <?php if (!empty($course['target_audience_names'])): ?>
                                                 <p class="opacity-90 mb-2">
-                                                    <strong>Audience:</strong> <?php echo htmlspecialchars($course['target_audience_name']); ?>
+                                                    <strong>Audience:</strong> <?php echo htmlspecialchars($course['target_audience_names']); ?>
                                                 </p>
                                             <?php endif; ?>
-                                            <?php if (!empty($course['min_age']) || !empty($course['max_age'])): ?>
+
+                                            <!-- full age group-->
+                                            <?php if (!empty($course['age_group_names'])): ?>
                                                 <p class="opacity-90 mb-3">
-                                                    <strong>Age Group:</strong>
-                                                    <?php
-                                                    if (!empty($course['min_age']) && !empty($course['max_age'])) {
-                                                        echo htmlspecialchars($course['min_age']) . ' - ' . htmlspecialchars($course['max_age']) . ' years';
-                                                    } elseif (!empty($course['min_age'])) {
-                                                        echo 'From ' . htmlspecialchars($course['min_age']) . ' years';
-                                                    } else {
-                                                        echo 'Up to ' . htmlspecialchars($course['max_age']) . ' years';
-                                                    }
-                                                    ?>
+                                                    <strong>Age Group:</strong> <?php echo htmlspecialchars($course['age_group_names']); ?>
                                                 </p>
                                             <?php endif; ?>
-                                            <!-- get short description from description-->
+
+                                            <!-- get short description from description by BREAK-->
                                             <?php if (!empty($course['description'])): ?>
                                                 <?php
-                                                // get short description by explode in description
                                                 $desc_parts = explode('[BREAK]', $course['description']);
-                                                // get summary before break, will move out html tags
                                                 $short_desc = strip_tags(trim($desc_parts[0]));
                                                 ?>
-                                                <p class="small text-white-50 px-2 mb-3" style="line-height: 1.4;">
+                                                <p class="small text-white px-2 mb-3" style="line-height: 1.4;">
                                                     <?php echo htmlspecialchars($short_desc); ?>
                                                 </p>
                                             <?php endif; ?>
@@ -117,14 +138,10 @@
                                     </div>
                                 </div>
                             </div>
-                        <?php
+                <?php
                         endforeach;
                     else:
-                        ?>
-                        <div class="col-12 text-center py-5">
-                            <p class="text-muted fs-5">No courses available at the moment. Please check back later!</p>
-                        </div>
-                <?php
+                        echo '<div class="col-12 text-center py-5"><p class="text-muted fs-5">No main courses available at the moment. Please check back later!</p></div>';
                     endif;
                 } catch (PDOException $e) {
                     echo '<div class="col-12 text-center"><p class="text-danger">Database error: ' . htmlspecialchars($e->getMessage()) . '</p></div>';
@@ -136,7 +153,7 @@
     <!--contact us-->
     <section class="my-5 py-4 text-center">
         <h2 class="fw-bold text-uppercase mb-2" style="letter-spacing: 1.5px;">CONTACT US</h2>
-        <p class="fs-5 text-secondary mb-2">Have a question? Please send a question to our team</p>
+        <p class="fs-5 mb-2">Have a question? Please send a question to our team</p>
         <a href="contact.php" class="fs-5 fw-bold nav-box">
             Click here to contact us
         </a>
