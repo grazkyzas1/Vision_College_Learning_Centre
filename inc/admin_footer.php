@@ -1,6 +1,6 @@
 <!-- Description: admin footer for admin.
 Author: An Bao Le -->
-
+</div>
 <footer class="py-3 text-center text-muted border-top bg-white mt-auto small">
     <div class="container">
         © 2026 Vision College Learning Centre — Admin Control Panel

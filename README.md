@@ -1,4 +1,5 @@
-YOU CAN USE THIS INFORMATION TO LOGIN TO ADMIN FRONT END.
-Email: anbaole@gmail.com
-Passsword: internship
-URL: "domain"/admin/login.php
+Website live URL: baointernship.dipwww.visioncollege.ac.nz
+Login credentials:
+- Email: anbaole@gmail.com
+- Password: internship
+Configuration notes: Use this URL to login admin: baointernship.dipwww.visioncollege.ac.nz/admin/login.php

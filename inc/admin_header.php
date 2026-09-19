@@ -107,4 +107,5 @@ if (!isset($_SESSION['user_id'])) {
         </div>
     </nav>
     <!--main container-->
+
     <div class="container my-4 flex-grow-1">
